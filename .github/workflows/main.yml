@@ -41,8 +41,8 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Run Docker container
-      uses: docker/compose-action@v2.10.1
-      with:
-        compose-file: docker-compose.yml
-        service: app
+#    - name: Run Docker container
+#      uses: docker/compose-action@v2.10.1
+#      with:
+#        compose-file: docker-compose.yml
+#        service: app
