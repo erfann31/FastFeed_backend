@@ -31,16 +31,10 @@ jobs:
         python manage.py migrate
         python manage.py test
 
-    - name: Build and push Docker image
+    - name: Build Docker image
       uses: docker/build-push-action@v2
       with:
         context: .
+        file: ./Dockerfile
         push: true
-        tags: dontbugmeplease/fastfeed:tagname
-        build-args: |
-          VERSION=1.0.0
-          LABEL1=value1
-          LABEL2=value2
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+        tags: dontbugmeplease/fastfeed:${{ github.sha }}
