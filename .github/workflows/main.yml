@@ -38,3 +38,4 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: dontbugmeplease/fastfeed:${{ github.sha }}
+        access-token: ${{ secrets.DOCKER_ACCESS_TOKEN }}
