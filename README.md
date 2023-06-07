@@ -3,7 +3,7 @@
 - All apps and their APIs in this project
 - All HTTP methods used in this project and their functionality
 - Description of every API in each app in detail
-- SMS verification activation using Django
+- SMS verification activation using Django(not implemented)
 
 ***
 
