@@ -1,7 +1,0 @@
-version: '3'
-
-services:
-  app:
-    image: Erfann31/FastFeed-Backend:latest
-    ports:
-      - "8000:8000"
