@@ -30,3 +30,18 @@ jobs:
         python manage.py makemigrations
         python manage.py migrate
         python manage.py test
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: Erfann31/FastFeed-Backend:latest
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Run Docker container
+      uses: docker/compose-action@v2
+      with:
+        compose-file: docker-compose.yml
+        service: app
