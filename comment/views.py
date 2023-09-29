@@ -1,14 +1,16 @@
 from django.db.models import Avg
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend
+from menu.models import Product
 from rest_framework import viewsets, exceptions
+from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-
-from menu.models import Product
 from store.models import Store
+
 from .models import Comment, Rating
 from .serializers import RatingSerializer, CommentSerializer, OrderCommentSerializer
 
@@ -16,9 +18,20 @@ from .serializers import RatingSerializer, CommentSerializer, OrderCommentSerial
 class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['store_id']
+    search_fields = ['name', 'content']
     permission_classes = [IsAuthenticated]
+
+
+class RatingViewSet(ModelViewSet):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]  # Add DjangoFilterBackend and SearchFilter
+    filterset_fields = ['product_id']
+    search_fields = ['score']
+    permission_classes = [IsAuthenticated]
+    ordering_fields = '__all__'
 
 
 class OrderCommentViewSet(viewsets.ReadOnlyModelViewSet):
@@ -46,15 +59,6 @@ class OrderCommentViewSet(viewsets.ReadOnlyModelViewSet):
             return Response({'detail': str(e)}, status=e.status_code)
         except Exception as e:
             return Response({'detail': 'An error occurred.'}, status=500)
-
-
-class RatingViewSet(ModelViewSet):
-    queryset = Rating.objects.all()
-    serializer_class = RatingSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['product_id']
-    permission_classes = [IsAuthenticated]
-    ordering_fields = '__all__'
 
 
 class StoreRatingAPIView(APIView):
