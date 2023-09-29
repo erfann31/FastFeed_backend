@@ -29,14 +29,17 @@ INSTALLED_APPS = [
     'django_filters',
 
     'corsheaders',
-
     'admin_interface',
     'colorfield',
     'django.contrib.admin',
+
     # 'azbankgateways',
 
     'rest_framework',
     'rest_framework.authtoken',
+
+    'drf_yasg',
+
     'subs',
     'store',
     'owner',
@@ -45,6 +48,16 @@ INSTALLED_APPS = [
     'comment',
     # 'payments'
 ]
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'USE_SESSION_AUTH': False,  # Set this to False if you are using TokenAuthentication
+}
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 SILENCED_SYSTEM_CHECKS = ['security.W019']
@@ -110,7 +123,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # use BusinessOwner model instead of the default User model
 # AUTH_USER_MODEL = 'core.User'
