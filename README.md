@@ -6,7 +6,6 @@
 - SMS verification activation using Django(not implemented)
 
 ***
-
 # All apps:
 
 ## store app
